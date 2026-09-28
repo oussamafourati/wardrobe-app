@@ -1,0 +1,5 @@
+{
+  "name": "wardrobe-app",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"]
+}
