@@ -1,4 +1,3 @@
-@"
 node_modules/
 .expo/
 dist/
@@ -8,6 +7,3 @@ dist/
 __pycache__/
 .venv/
 *.log
-"@ | Set-Content -Encoding ascii .gitignore
-
-"# Wardrobe app" | Set-Content -Encoding ascii README.md
