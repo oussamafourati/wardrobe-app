@@ -1,0 +1,13 @@
+@"
+node_modules/
+.expo/
+dist/
+.env
+.env.*
+!.env.example
+__pycache__/
+.venv/
+*.log
+"@ | Set-Content -Encoding ascii .gitignore
+
+"# Wardrobe app" | Set-Content -Encoding ascii README.md
