@@ -1,0 +1,23 @@
+name: wardrobe
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    container_name: wardrobe-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wardrobe
+      POSTGRES_PASSWORD: wardrobe_dev_password
+      POSTGRES_DB: wardrobe
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wardrobe -d wardrobe"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:
