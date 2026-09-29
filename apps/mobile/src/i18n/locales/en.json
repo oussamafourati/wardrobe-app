@@ -1,0 +1,17 @@
+{
+  "app": {
+    "tagline": "The right look for every occasion"
+  },
+  "home": {
+    "connectionCheck": "Connection check",
+    "api": "API",
+    "database": "Database",
+    "checkAgain": "Check again",
+    "language": "Language",
+    "noApiUrl": "No API URL configured"
+  },
+  "errors": {
+    "timeout": "Timed out after 5 s",
+    "notConfigured": "EXPO_PUBLIC_API_URL is not set"
+  }
+}

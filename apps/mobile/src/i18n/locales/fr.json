@@ -1,0 +1,17 @@
+{
+  "app": {
+    "tagline": "Le bon look pour chaque occasion"
+  },
+  "home": {
+    "connectionCheck": "Vérification de la connexion",
+    "api": "API",
+    "database": "Base de données",
+    "checkAgain": "Vérifier à nouveau",
+    "language": "Langue",
+    "noApiUrl": "Aucune adresse d'API configurée"
+  },
+  "errors": {
+    "timeout": "Délai dépassé (5 s)",
+    "notConfigured": "EXPO_PUBLIC_API_URL n'est pas défini"
+  }
+}
