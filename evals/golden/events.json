@@ -1,0 +1,22 @@
+[
+  {"id": "ev-001", "language": "fr", "prompt": "Mariage de ma cousine samedi soir à Lyon, cérémonie à l'église puis soirée dansante. Je suis invitée.", "expected": {"event_type": "wedding", "role": "guest", "formality": [3, 4], "time_of_day": "evening", "activities_include": ["dancing"]}},
+  {"id": "ev-002", "language": "fr", "prompt": "Entretien d'embauche mardi à 9h dans une banque.", "expected": {"event_type": "job_interview", "role": "candidate", "formality": [4, 5], "time_of_day": "morning"}},
+  {"id": "ev-003", "language": "fr", "prompt": "Premier rendez-vous vendredi soir, dîner dans un petit resto sympa.", "expected": {"event_type": "date", "formality": [2, 3], "time_of_day": "evening"}},
+  {"id": "ev-004", "language": "fr", "prompt": "Dîner chez les parents de mon copain, c'est la première fois que je les rencontre.", "expected": {"event_type": "family_dinner", "role": "guest", "formality": [2, 4]}},
+  {"id": "ev-005", "language": "fr", "prompt": "Afterwork avec l'équipe jeudi, je viens directement du bureau.", "expected": {"event_type": "afterwork", "role": "colleague", "formality": [2, 3], "time_of_day": "evening"}},
+  {"id": "ev-006", "language": "fr", "prompt": "Pot de départ d'une collègue vendredi en fin d'après-midi au bureau.", "expected": {"event_type": "farewell_party", "role": "colleague", "formality": [2, 3], "time_of_day": "afternoon", "indoor_outdoor": "indoor"}},
+  {"id": "ev-007", "language": "fr", "prompt": "Baptême de mon neveu dimanche matin à l'église.", "expected": {"event_type": "baptism", "role": "guest", "formality": [3, 4], "time_of_day": "morning", "indoor_outdoor": "indoor"}},
+  {"id": "ev-008", "language": "fr", "prompt": "Réveillon du 31 chez des amis, on va danser toute la nuit.", "expected": {"event_type": "new_years_eve", "role": "guest", "formality": [3, 4], "time_of_day": "night", "activities_include": ["dancing"]}},
+  {"id": "ev-009", "language": "fr", "prompt": "Obsèques d'un ami de mon père mercredi après-midi.", "expected": {"event_type": "funeral", "role": "guest", "formality": [3, 4], "time_of_day": "afternoon"}},
+  {"id": "ev-010", "language": "mixed", "prompt": "Afterwork décontracté mais je dois rester pro.", "expected": {"event_type": "afterwork", "formality": [2, 3], "impression_include": ["professional"]}},
+  {"id": "ev-011", "language": "mixed", "prompt": "Meeting avec un client important lundi matin, je veux faire bonne impression.", "expected": {"event_type": "workday", "formality": [3, 4], "time_of_day": "morning", "impression_include": ["professional"]}},
+  {"id": "ev-012", "language": "mixed", "prompt": "Date ce soir sur un rooftop, dress code smart casual.", "expected": {"event_type": "date", "dress_code": "smart_casual", "formality": [2, 3], "time_of_day": "evening", "indoor_outdoor": "outdoor"}},
+  {"id": "ev-013", "language": "en", "prompt": "Wedding guest outfit for an outdoor ceremony on a summer afternoon.", "expected": {"event_type": "wedding", "role": "guest", "formality": [3, 4], "time_of_day": "afternoon", "indoor_outdoor": "outdoor"}},
+  {"id": "ev-014", "language": "en", "prompt": "Job interview at a tech startup tomorrow.", "expected": {"event_type": "job_interview", "role": "candidate", "formality": [2, 4]}},
+  {"id": "ev-015", "language": "en", "prompt": "Dinner with my partner's parents, outdoors, I get cold easily.", "expected": {"event_type": "family_dinner", "role": "guest", "indoor_outdoor": "outdoor"}},
+  {"id": "ev-016", "language": "en", "prompt": "Black tie charity gala next Saturday night.", "expected": {"event_type": "gala", "dress_code": "black_tie", "formality": [5, 5]}},
+  {"id": "ev-017", "language": "fr", "prompt": "Soirée de henné pour le mariage de ma meilleure amie samedi, tenue traditionnelle prévue.", "expected": {"event_type": "wedding", "role": "guest", "dress_code": "traditional", "formality": [3, 5]}},
+  {"id": "ev-018", "language": "fr", "prompt": "Je suis demoiselle d'honneur au mariage de ma sœur en juin.", "expected": {"event_type": "wedding", "role": "wedding_party", "formality": [3, 5]}},
+  {"id": "ev-019", "language": "fr", "prompt": "Anniversaire surprise de ma mère, dîner au restaurant, ambiance chic.", "expected": {"event_type": "birthday", "role": "guest", "formality": [3, 4], "time_of_day": "evening"}},
+  {"id": "ev-020", "language": "fr", "prompt": "Je ne sais pas quoi mettre demain.", "expected": {"needs_clarification": true}}
+]
