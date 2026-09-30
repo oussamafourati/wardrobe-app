@@ -46,3 +46,13 @@ Open Expo Go on the phone and scan the QR code.
 
 - Never commit .env files. The local database password is for development only.
 - One branch per story, merged through a pull request with green CI.
+
+## Database migrations
+
+    cd apps\api ; uv run alembic upgrade head
+    cd apps\api ; uv run alembic revision --autogenerate -m "describe the change"
+    cd apps\api ; uv run alembic check
+
+Change models.py first, generate a migration, and read the generated file
+before committing it. CI applies the migrations on a blank database and
+runs alembic check to catch any drift between models and migrations.

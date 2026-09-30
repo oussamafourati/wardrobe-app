@@ -1,11 +1,9 @@
 import pytest
-from sqlalchemy import text
-
-from db import engine
+from alembic import command
+from alembic.config import Config
 
 
 @pytest.fixture(scope="session", autouse=True)
-def pgvector_extension():
-    """Make sure pgvector exists. In Sprint 1 this moves into a migration."""
-    with engine.begin() as conn:
-        conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+def migrated_database():
+    """Bring the database to the latest schema before any test runs."""
+    command.upgrade(Config("alembic.ini"), "head")
