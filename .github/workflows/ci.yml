@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mobile:
+    name: Mobile (typecheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Recreate the file Expo generates locally
+        run: echo '/// <reference types="expo/types" />' > expo-env.d.ts
+        working-directory: apps/mobile
+      - run: npx tsc --noEmit
+        working-directory: apps/mobile
+
+  api:
+    name: API (tests)
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: wardrobe
+          POSTGRES_PASSWORD: wardrobe_dev_password
+          POSTGRES_DB: wardrobe
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wardrobe -d wardrobe"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://wardrobe:wardrobe_dev_password@127.0.0.1:5432/wardrobe
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v8.1.0
+      - run: uv sync --locked
+      - run: uv run pytest -v
