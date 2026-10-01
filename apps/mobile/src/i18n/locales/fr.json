@@ -8,7 +8,11 @@
     "database": "Base de données",
     "checkAgain": "Vérifier à nouveau",
     "language": "Langue",
-    "noApiUrl": "Aucune adresse d'API configurée"
+    "noApiUrl": "Aucune adresse d'API configurée",
+    "session": "Session",
+    "sessionNew": "Nouvelle session",
+    "sessionResumed": "Session reprise",
+    "userId": "Identifiant"
   },
   "errors": {
     "timeout": "Délai dépassé (5 s)",

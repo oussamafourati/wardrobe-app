@@ -3,9 +3,9 @@ import { ActivityIndicator, Pressable, StyleSheet, Text, useColorScheme, View } 
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { API_URL, apiFetch } from '../api/client';
 import '../i18n';
-
-const API_URL = process.env.EXPO_PUBLIC_API_URL;
+import { ensureSession, type SessionInfo } from '../session/session';
 
 type Check =
   | { state: 'loading' }
@@ -21,41 +21,37 @@ function toError(err: unknown): Check {
   return { state: 'error', raw: String(err) };
 }
 
-async function getJson(path: string): Promise<Record<string, string>> {
-  if (!API_URL) throw new Error('NOT_CONFIGURED');
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 5000);
-  try {
-    const res = await fetch(`${API_URL}${path}`, { signal: controller.signal });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
 export default function HomeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dark = useColorScheme() === 'dark';
   const [api, setApi] = useState<Check>({ state: 'loading' });
   const [db, setDb] = useState<Check>({ state: 'loading' });
+  const [session, setSession] = useState<Check>({ state: 'loading' });
+  const [sessionInfo, setSessionInfo] = useState<SessionInfo | null>(null);
 
   const run = useCallback(async () => {
     setApi({ state: 'loading' });
     setDb({ state: 'loading' });
+    setSession({ state: 'loading' });
     try {
-      const body = await getJson('/health');
+      const body = await apiFetch<Record<string, string>>('/health');
       setApi({ state: 'ok', detail: body.status });
     } catch (err) {
       setApi(toError(err));
     }
     try {
-      const body = await getJson('/health/db');
+      const body = await apiFetch<Record<string, string>>('/health/db');
       setDb({ state: 'ok', detail: `pgvector ${body.pgvector}` });
     } catch (err) {
       setDb(toError(err));
     }
-  }, []);
+    try {
+      setSessionInfo(await ensureSession(i18n.language));
+      setSession({ state: 'ok', detail: '' });
+    } catch (err) {
+      setSession(toError(err));
+    }
+  }, [i18n]);
 
   useEffect(() => {
     run();
@@ -63,6 +59,9 @@ export default function HomeScreen() {
 
   const text = dark ? '#f5f5f5' : '#111111';
   const card = dark ? '#1f1f22' : '#f2f2f4';
+  const sessionText = sessionInfo
+    ? `${t(sessionInfo.fresh ? 'home.sessionNew' : 'home.sessionResumed')} - ${t('home.userId')} ${sessionInfo.userId.slice(0, 8)}`
+    : undefined;
 
   return (
     <SafeAreaView style={[styles.screen, { backgroundColor: dark ? '#000000' : '#ffffff' }]}>
@@ -74,6 +73,7 @@ export default function HomeScreen() {
       <Text style={[styles.section, { color: text }]}>{t('home.connectionCheck')}</Text>
       <Row label={t('home.api')} check={api} text={text} card={card} />
       <Row label={t('home.database')} check={db} text={text} card={card} />
+      <Row label={t('home.session')} check={session} okText={sessionText} text={text} card={card} />
 
       <Pressable style={styles.button} onPress={run} accessibilityRole="button">
         <Text style={styles.buttonText}>{t('home.checkAgain')}</Text>
@@ -107,7 +107,19 @@ function LanguageSwitch({ text, card }: { text: string; card: string }) {
   );
 }
 
-function Row({ label, check, text, card }: { label: string; check: Check; text: string; card: string }) {
+function Row({
+  label,
+  check,
+  okText,
+  text,
+  card,
+}: {
+  label: string;
+  check: Check;
+  okText?: string;
+  text: string;
+  card: string;
+}) {
   const { t } = useTranslation();
   const color = check.state === 'ok' ? '#22a559' : check.state === 'error' ? '#d93636' : '#999999';
   return (
@@ -119,7 +131,7 @@ function Row({ label, check, text, card }: { label: string; check: Check; text: 
           <ActivityIndicator />
         ) : (
           <Text style={[styles.rowDetail, { color: text }]}>
-            {check.state === 'ok' ? check.detail : check.key ? t(check.key) : check.raw}
+            {check.state === 'ok' ? (okText ?? check.detail) : check.key ? t(check.key) : check.raw}
           </Text>
         )}
       </View>
