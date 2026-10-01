@@ -2,8 +2,10 @@ from fastapi import FastAPI, HTTPException
 from sqlalchemy import text
 
 from db import engine
+from v1 import router as v1_router
 
 app = FastAPI(title="Wardrobe API")
+app.include_router(v1_router)
 
 
 @app.get("/health")

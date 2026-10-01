@@ -83,3 +83,18 @@ class Profile(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
     )
+
+
+class GuestSession(Base):
+    """One row per device. Only the SHA-256 hash of the token is stored."""
+
+    __tablename__ = "sessions"
+    __table_args__ = (Index("ix_sessions_user_id", "user_id"),)
+
+    token_hash: Mapped[str] = mapped_column(Text, primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
