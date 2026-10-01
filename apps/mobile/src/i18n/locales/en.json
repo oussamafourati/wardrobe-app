@@ -8,7 +8,11 @@
     "database": "Database",
     "checkAgain": "Check again",
     "language": "Language",
-    "noApiUrl": "No API URL configured"
+    "noApiUrl": "No API URL configured",
+    "session": "Session",
+    "sessionNew": "New session",
+    "sessionResumed": "Session resumed",
+    "userId": "ID"
   },
   "errors": {
     "timeout": "Timed out after 5 s",
