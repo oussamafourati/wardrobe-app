@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "domains": {
     "event_type": ["wedding", "job_interview", "date", "family_dinner", "workday", "afterwork", "farewell_party", "baptism", "communion", "new_years_eve", "funeral", "birthday", "gala"],
     "dress_code": ["casual", "smart_casual", "business_casual", "business_formal", "semi_formal", "cocktail", "black_tie", "traditional"],
@@ -7,6 +7,9 @@
     "time_of_day": ["morning", "afternoon", "evening", "night"],
     "indoor_outdoor": ["indoor", "outdoor", "both"],
     "activity": ["dancing", "long_sitting", "walking", "standing", "presenting"],
-    "impression": ["elegant", "approachable", "authoritative", "confident", "discreet", "playful", "romantic", "relaxed", "professional"]
+    "impression": ["elegant", "approachable", "authoritative", "confident", "discreet", "playful", "romantic", "relaxed", "professional"],
+    "undertone": ["warm", "cool", "neutral", "olive", "unsure"],
+    "hair_color": ["black", "dark_brown", "brown", "light_brown", "blonde", "red", "grey_white", "other"],
+    "eye_color": ["brown", "hazel", "green", "blue", "grey", "other"]
   }
 }
